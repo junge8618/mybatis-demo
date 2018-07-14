@@ -23,7 +23,7 @@
 		<javaModelGenerator targetPackage="com.junge.demo.mybatis.simple.model"
 			targetProject="mybatis-demo/src/main/java">
 			<property name="enableSubPackages" value="true" />
-			<property name="trimStrings" value="true" />
+			<property name="trimStrings" value="false" />
 		</javaModelGenerator>
 		<!-- 生成映射文件的包名和位置 -->
 		<sqlMapGenerator targetPackage="mybatis.simple.mapper"

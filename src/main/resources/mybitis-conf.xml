@@ -4,20 +4,33 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-	<properties resource="jdbc.properties" />
+	<!-- 属性使用优先级：方法参数传递的属性>resource指定的属性文件>在properties中配置的属性 -->
+	<properties resource="jdbc.properties">
+		<property name="jdbc.driver" value="org.postgresql.Driver"/>
+		<property name="jdbc.url" value="jdbc:postgresql://193.112.94.220:5432/demodb"/>
+		<property name="jdbc.username" value="demouser"/>
+		<property name="jdbc.password" value="demouser"/>
+		
+		<!-- 启用：为占位符指定默认值 -->
+		<property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+		<!-- 指定占位符和默认值分隔符 -->
+		<property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="?:"/>
+	</properties>
 
 	<settings>
-		<setting name="logImpl" value="LOG4J" />
+		<setting name="logImpl" value="LOG4J2" />
+		<setting name="logPrefix" value="XXXXXXXXXXXXXXx"/>
+		<setting name="useGeneratedKeys" value="true"/>
 	</settings>
 
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="${jdbc.driver}" />
-				<property name="url" value="${jdbc.url}" />
-				<property name="username" value="${jdbc.username}" />
-				<property name="password" value="${jdbc.password}" />
+				<property name="driver" value="${jdbc.driver?:org.postgresql.Driver}" />
+				<property name="url" value="${jdbc.url?:jdbc:postgresql://193.112.94.220:5432/demodb}" />
+				<property name="username" value="${jdbc.username?:demouser}" />
+				<property name="password" value="${jdbc.password?:demouser}" />
 			</dataSource>
 		</environment>
 	</environments>

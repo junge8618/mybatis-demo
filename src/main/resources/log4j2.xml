@@ -12,8 +12,8 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p [%l] %m%n"/>
         </console>
 
-        <RollingFile name="RollingFileInfo" fileName="${LOG_HOME}/fincredit-server.log"
-                     filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/fincredit-server-%d{yyyy-MM-dd}-%i.log.zip">
+        <RollingFile name="RollingFileInfo" fileName="${LOG_HOME}/demo.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/demo-%d{yyyy-MM-dd}-%i.log.zip">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p [%l] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
@@ -35,7 +35,8 @@
         <logger name="com.netflix.discovery" level="info"/>
         <logger name="org.apache" level="warn"/>
         <logger name="org.hibernate" level="warn"/>
-        <root level="debug">
+        <logger name="org.apache.ibatis" level="trace"/>
+        <root level="trace">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
         </root>
