@@ -22,6 +22,7 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="com/junge/demo/mybatis/example/BlogMapper.xml" />
+		<mapper resource="mybatis/simple/mapper/GoodsInfoMapper.xml" />
+		<mapper resource="mybatis/simple/mapper/BrandMapper.xml" />
 	</mappers>
 </configuration>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junge.demo.mybatis.simple.dao.BrandMapper">
+  <resultMap id="BaseResultMap" type="com.junge.demo.mybatis.simple.model.Brand">
+    <id column="brandid" jdbcType="BIGINT" property="brandid" />
+    <result column="brandname" jdbcType="VARCHAR" property="brandname" />
+    <result column="vendername" jdbcType="VARCHAR" property="vendername" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    brandid, brandname, vendername
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_demo_brand
+    where brandid = #{brandid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_demo_brand
+    where brandid = #{brandid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.junge.demo.mybatis.simple.model.Brand">
+    insert into t_demo_brand (brandid, brandname, vendername
+      )
+    values (#{brandid,jdbcType=BIGINT}, #{brandname,jdbcType=VARCHAR}, #{vendername,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.junge.demo.mybatis.simple.model.Brand">
+    insert into t_demo_brand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="brandid != null">
+        brandid,
+      </if>
+      <if test="brandname != null">
+        brandname,
+      </if>
+      <if test="vendername != null">
+        vendername,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="brandid != null">
+        #{brandid,jdbcType=BIGINT},
+      </if>
+      <if test="brandname != null">
+        #{brandname,jdbcType=VARCHAR},
+      </if>
+      <if test="vendername != null">
+        #{vendername,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.junge.demo.mybatis.simple.model.Brand">
+    update t_demo_brand
+    <set>
+      <if test="brandname != null">
+        brandname = #{brandname,jdbcType=VARCHAR},
+      </if>
+      <if test="vendername != null">
+        vendername = #{vendername,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where brandid = #{brandid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.junge.demo.mybatis.simple.model.Brand">
+    update t_demo_brand
+    set brandname = #{brandname,jdbcType=VARCHAR},
+      vendername = #{vendername,jdbcType=VARCHAR}
+    where brandid = #{brandid,jdbcType=BIGINT}
+  </update>
+</mapper>

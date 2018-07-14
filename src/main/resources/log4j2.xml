@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--设置log4j2的自身log级别为warn-->
+<configuration status="ALL">
+
+	<Properties>
+        <!-- 配置日志文件输出目录 -->
+        <Property name="LOG_HOME">./log</Property>
+    </Properties>
+	
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p [%l] %m%n"/>
+        </console>
+
+        <RollingFile name="RollingFileInfo" fileName="${LOG_HOME}/fincredit-server.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/fincredit-server-%d{yyyy-MM-dd}-%i.log.zip">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p [%l] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="150 MB"/>
+            </Policies>
+			<DefaultRolloverStrategy max="20" />
+        </RollingFile>
+
+    </appenders>
+
+    <loggers>
+        <!--过滤掉spring和hibernate的一些无用的debug信息-->
+        <logger name="org.springframework" level="warn" />
+        <logger name="org.hibernate" level="warn" />
+		<logger name="org.elasticsearch" level="warn" />
+		<logger name="org.redisson" level="warn" />
+		<logger name="com.skylink" level="debug" />
+        <logger name="com.netflix" level="warn"/>
+        <logger name="com.netflix.discovery" level="info"/>
+        <logger name="org.apache" level="warn"/>
+        <logger name="org.hibernate" level="warn"/>
+        <root level="debug">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+        </root>
+    </loggers>
+
+</configuration>
