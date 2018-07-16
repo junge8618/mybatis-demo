@@ -33,10 +33,40 @@ public class Main {
 		
 		//addGoodsBySql(sqlSessionFactory);
 		
-		addGoodsByMapper(sqlSessionFactory, goodsInfo2);
-		System.out.println(goodsInfo2.getGoodsid());
+		//addGoodsByMapper(sqlSessionFactory, goodsInfo2);
+		//System.out.println(goodsInfo2.getGoodsid());
 		
 		queryGoodsById(sqlSessionFactory, 5385L);
+		
+		queryGoodsById2(sqlSessionFactory, 5385L);
+		
+		queryAllGoods(sqlSessionFactory);
+	}
+
+	private static void queryAllGoods(SqlSessionFactory sqlSessionFactory) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			GoodsInfoMapper goodsInfoMapper = sqlSession.getMapper(GoodsInfoMapper.class);
+			System.out.println(JSONObject.toJSONString(goodsInfoMapper.queryAllGoods()));
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+	}
+
+	private static void queryGoodsById2(SqlSessionFactory sqlSessionFactory, long goodsId) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			GoodsInfoMapper goodsInfoMapper = sqlSession.getMapper(GoodsInfoMapper.class);
+			System.out.println(JSONObject.toJSONString(goodsInfoMapper.queryGoodsById(goodsId)));
+			
+		} finally {
+			sqlSession.close();
+		}
+		
 	}
 
 	public static void addGoodsBySql(SqlSessionFactory sqlSessionFactory, GoodsInfo goodsInfo) {
